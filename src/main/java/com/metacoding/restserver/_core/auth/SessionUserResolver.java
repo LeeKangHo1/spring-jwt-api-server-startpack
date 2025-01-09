@@ -18,16 +18,16 @@ public class SessionUserResolver implements HandlerMethodArgumentResolver {
     // AOP로 하는 것을 편하게 하라고 만드는 것
     @Override
     public boolean supportsParameter(MethodParameter parameter) {
-        // @SessionUser 어노테이션이 달려 있고 User class와 일치하면 resolveArgument 발동
+        // @SessionUser 어노테이션이 달려 있고 LoginUser class와 일치하면 resolveArgument 발동
         boolean isAnnotated = parameter.getParameterAnnotation(SessionUser.class) != null;
-        boolean isClass = User.class.equals(parameter.getParameterType());
+        boolean isClass = LoginUser.class.equals(parameter.getParameterType());
         return isAnnotated && isClass;
     }
 
     @Override
     public Object resolveArgument(MethodParameter parameter, ModelAndViewContainer mavContainer, NativeWebRequest webRequest, WebDataBinderFactory binderFactory) throws Exception {
         // 이렇게 하면 컨트롤러 메서드에서 @SessionUser User user와 같이 선언된 파라미터에 세션 사용자 정보가 자동으로 주입됩니다.
-        User sessionUser = (User) session.getAttribute("sessionUser");
-        return sessionUser;
+        LoginUser loginUser = (LoginUser) session.getAttribute("sessionUser");
+        return loginUser;
     }
 }

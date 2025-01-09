@@ -35,6 +35,8 @@ public class JwtUtil {
 
     public LoginUser verify(String jwt)
             throws SignatureVerificationException, TokenExpiredException, JWTDecodeException {
+        // 서명안됨, 토큰만료, JWT형식이 아님 까지 예외 3개 발생 가능 -> 모두 로그인페이지로
+
         jwt = jwt.replace("Bearer ", "");
 
         // JWT를 검증한 후, 검증이 완료되면, header, payload를 base64로 복호화함.
